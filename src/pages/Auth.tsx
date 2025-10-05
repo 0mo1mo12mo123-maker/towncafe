@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
+import { CafeName } from "@/Utils/utils";
 
 const Auth = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -83,7 +84,7 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold text-primary">Town Cafe</CardTitle>
+          <CardTitle className="text-3xl font-bold text-primary">{CafeName}</CardTitle>
           <CardDescription>Admin Access</CardDescription>
         </CardHeader>
         <CardContent>

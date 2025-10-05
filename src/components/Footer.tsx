@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Facebook, Instagram, Twitter } from "lucide-react";
+import { CafeName } from "@/Utils/utils";
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4 text-primary">Town Cafe</h3>
+            <h3 className="text-xl font-bold mb-4 text-primary">{CafeName}</h3>
             <p className="text-secondary-foreground/80">
               Serving delicious burgers and more since 2024. Quality ingredients, great taste, unforgettable experience.
             </p>
@@ -58,7 +59,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-secondary-foreground/20 mt-8 pt-6 text-center text-secondary-foreground/60">
-          <p>&copy; 2024 Town Cafe. All rights reserved.</p>
+          <p>&copy; 2024  {CafeName}. All rights reserved.</p>
         </div>
       </div>
     </footer>
