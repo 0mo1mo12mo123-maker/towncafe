@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold text-primary">
-            Makani Cafe
+            Town Cafe
           </Link>
           
           <div className="hidden md:flex items-center gap-8">

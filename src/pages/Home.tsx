@@ -46,7 +46,7 @@ const Home = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center px-4 animate-fade-in">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 text-secondary">
-                Welcome to <span className="text-primary">Makani Cafe</span>
+                Welcome to <span className="text-primary">Town Cafe</span>
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-secondary/80 max-w-2xl mx-auto">
                 Experience the finest burgers, crafted with passion and served with love
@@ -94,9 +94,9 @@ const Home = () => {
 
         <section className="container mx-auto px-4 py-20">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6 text-secondary">About Makani Cafe</h2>
+            <h2 className="text-4xl font-bold mb-6 text-secondary">About Town Cafe</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              At Makani Cafe, we believe in serving more than just food - we serve experiences. 
+              At Town Cafe, we believe in serving more than just food - we serve experiences. 
               Our burgers are crafted with premium ingredients, our fries are perfectly golden, 
               and every dish is made with love. Join us for an unforgettable culinary journey 
               where quality meets taste, and every bite tells a story.

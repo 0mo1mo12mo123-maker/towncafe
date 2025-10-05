@@ -83,7 +83,7 @@ const Auth = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold text-primary">Makani Cafe</CardTitle>
+          <CardTitle className="text-3xl font-bold text-primary">Town Cafe</CardTitle>
           <CardDescription>Admin Access</CardDescription>
         </CardHeader>
         <CardContent>
@@ -101,7 +101,7 @@ const Auth = () => {
                     id="signin-email"
                     name="signin-email"
                     type="email"
-                    placeholder="admin@makanicafe.com"
+                    placeholder="admin@Towncafe.com"
                     required
                   />
                 </div>
@@ -132,7 +132,7 @@ const Auth = () => {
                     id="signup-email"
                     name="signup-email"
                     type="email"
-                    placeholder="admin@makanicafe.com"
+                    placeholder="admin@Towncafe.com"
                     required
                   />
                 </div>
