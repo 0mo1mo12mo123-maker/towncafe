@@ -1,1 +1,0 @@
-export const CafeName = 'Town Cafee'

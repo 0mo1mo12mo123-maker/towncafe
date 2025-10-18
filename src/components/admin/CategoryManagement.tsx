@@ -12,6 +12,7 @@ import { Pencil, Trash2, Plus } from "lucide-react";
 interface Category {
   id: string;
   name: string;
+  subcategory_support?: string;
 }
 
 const CategoryManagement = () => {
@@ -19,6 +20,7 @@ const CategoryManagement = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [categoryName, setCategoryName] = useState("");
+  const [subcategorySupport, setSubcategorySupport] = useState<string>("both");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,6 +39,7 @@ const CategoryManagement = () => {
   const handleEdit = (category: Category) => {
     setEditingCategory(category);
     setCategoryName(category.name);
+    setSubcategorySupport(category.subcategory_support || "both");
     setIsDialogOpen(true);
   };
 
@@ -61,7 +64,10 @@ const CategoryManagement = () => {
       if (editingCategory) {
         const { error } = await supabase
           .from("categories")
-          .update({ name: categoryName })
+          .update({ 
+            name: categoryName,
+            subcategory_support: subcategorySupport
+          })
           .eq("id", editingCategory.id);
 
         if (error) throw error;
@@ -69,7 +75,10 @@ const CategoryManagement = () => {
       } else {
         const { error } = await supabase
           .from("categories")
-          .insert({ name: categoryName });
+          .insert({ 
+            name: categoryName,
+            subcategory_support: subcategorySupport
+          });
 
         if (error) throw error;
         toast.success("Category created");
@@ -77,6 +86,7 @@ const CategoryManagement = () => {
 
       setIsDialogOpen(false);
       setCategoryName("");
+      setSubcategorySupport("both");
       setEditingCategory(null);
       fetchCategories();
     } catch (error) {
@@ -93,7 +103,11 @@ const CategoryManagement = () => {
         <CardTitle>Categories</CardTitle>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={() => { setCategoryName(""); setEditingCategory(null); }} className="gap-2">
+            <Button onClick={() => { 
+              setCategoryName(""); 
+              setSubcategorySupport("both");
+              setEditingCategory(null); 
+            }} className="gap-2">
               <Plus className="h-4 w-4" />
               Add Category
             </Button>
@@ -112,6 +126,61 @@ const CategoryManagement = () => {
                   placeholder="e.g., Burgers"
                 />
               </div>
+              
+              <div className="space-y-2">
+                <Label>Subcategory Support</Label>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="both"
+                      name="subcategory"
+                      value="both"
+                      checked={subcategorySupport === "both"}
+                      onChange={(e) => setSubcategorySupport(e.target.value)}
+                      className="h-4 w-4"
+                    />
+                    <Label htmlFor="both" className="cursor-pointer font-normal">Both Veg and Non-Veg</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="veg"
+                      name="subcategory"
+                      value="veg"
+                      checked={subcategorySupport === "veg"}
+                      onChange={(e) => setSubcategorySupport(e.target.value)}
+                      className="h-4 w-4"
+                    />
+                    <Label htmlFor="veg" className="cursor-pointer font-normal">Veg Only</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="non_veg"
+                      name="subcategory"
+                      value="non_veg"
+                      checked={subcategorySupport === "non_veg"}
+                      onChange={(e) => setSubcategorySupport(e.target.value)}
+                      className="h-4 w-4"
+                    />
+                    <Label htmlFor="non_veg" className="cursor-pointer font-normal">Non-Veg Only</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="radio"
+                      id="none"
+                      name="subcategory"
+                      value="none"
+                      checked={subcategorySupport === "none"}
+                      onChange={(e) => setSubcategorySupport(e.target.value)}
+                      className="h-4 w-4"
+                    />
+                    <Label htmlFor="none" className="cursor-pointer font-normal">No Subcategories</Label>
+                  </div>
+                </div>
+              </div>
+              
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Saving..." : editingCategory ? "Update" : "Create"}
               </Button>
@@ -120,31 +189,33 @@ const CategoryManagement = () => {
         </Dialog>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {categories.map((category) => (
-              <TableRow key={category.id}>
-                <TableCell className="font-medium">{category.name}</TableCell>
-                <TableCell>
-                  <div className="flex gap-2">
-                    <Button onClick={() => handleEdit(category)} size="icon" variant="outline">
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button onClick={() => handleDelete(category.id)} size="icon" variant="destructive">
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {categories.map((category) => (
+                <TableRow key={category.id}>
+                  <TableCell className="font-medium">{category.name}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button onClick={() => handleEdit(category)} size="icon" variant="outline">
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button onClick={() => handleDelete(category.id)} size="icon" variant="destructive">
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );

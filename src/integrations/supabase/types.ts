@@ -16,19 +16,99 @@ export type Database = {
     Tables: {
       categories: {
         Row: {
+          category_type: string | null
           created_at: string
           id: string
           name: string
+          parent_category_id: string | null
+          subcategory_support: string | null
         }
         Insert: {
+          category_type?: string | null
           created_at?: string
           id?: string
           name: string
+          parent_category_id?: string | null
+          subcategory_support?: string | null
         }
         Update: {
+          category_type?: string | null
           created_at?: string
           id?: string
           name?: string
+          parent_category_id?: string | null
+          subcategory_support?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "categories_parent_category_id_fkey"
+            columns: ["parent_category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      combo_bundle_items: {
+        Row: {
+          combo_bundle_id: string
+          created_at: string
+          id: string
+          menu_item_id: string
+        }
+        Insert: {
+          combo_bundle_id: string
+          created_at?: string
+          id?: string
+          menu_item_id: string
+        }
+        Update: {
+          combo_bundle_id?: string
+          created_at?: string
+          id?: string
+          menu_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "combo_bundle_items_combo_bundle_id_fkey"
+            columns: ["combo_bundle_id"]
+            isOneToOne: false
+            referencedRelation: "combo_bundles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "combo_bundle_items_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      combo_bundles: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          price?: number
         }
         Relationships: []
       }
@@ -64,14 +144,49 @@ export type Database = {
           },
         ]
       }
+      menu_item_images: {
+        Row: {
+          created_at: string
+          display_order: number | null
+          id: string
+          image_url: string
+          menu_item_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url: string
+          menu_item_id: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number | null
+          id?: string
+          image_url?: string
+          menu_item_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "menu_item_images_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "menu_items"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       menu_items: {
         Row: {
           category_id: string | null
           created_at: string
           description: string | null
           discounted_price: number | null
+          food_type: string | null
           id: string
           image_url: string | null
+          is_cafe_special: boolean | null
+          is_fast_selling: boolean | null
           name: string
           price: number
           updated_at: string
@@ -81,8 +196,11 @@ export type Database = {
           created_at?: string
           description?: string | null
           discounted_price?: number | null
+          food_type?: string | null
           id?: string
           image_url?: string | null
+          is_cafe_special?: boolean | null
+          is_fast_selling?: boolean | null
           name: string
           price: number
           updated_at?: string
@@ -92,8 +210,11 @@ export type Database = {
           created_at?: string
           description?: string | null
           discounted_price?: number | null
+          food_type?: string | null
           id?: string
           image_url?: string | null
+          is_cafe_special?: boolean | null
+          is_fast_selling?: boolean | null
           name?: string
           price?: number
           updated_at?: string

@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { User, Session } from "@supabase/supabase-js";
 import MenuItemManagement from "@/components/admin/MenuItemManagement";
 import CategoryManagement from "@/components/admin/CategoryManagement";
+import ComboManagement from "@/components/admin/ComboManagement";
+import Analytics from "@/components/admin/Analytics";
 import { LogOut } from "lucide-react";
 
 const Admin = () => {
@@ -94,7 +96,7 @@ const Admin = () => {
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold text-primary">Admin Dashboard</h1>
+          <h1 onClick={()=>{navigate("/")}}className="text-4xl font-bold text-primary">Admin Dashboard</h1>
           <Button onClick={handleSignOut} variant="outline" className="gap-2">
             <LogOut className="h-4 w-4" />
             Sign Out
@@ -102,9 +104,11 @@ const Admin = () => {
         </div>
 
         <Tabs defaultValue="menu-items" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-8">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8">
             <TabsTrigger value="menu-items">Menu Items</TabsTrigger>
             <TabsTrigger value="categories">Categories</TabsTrigger>
+            <TabsTrigger value="combos">Combo Bundles</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
           
           <TabsContent value="menu-items">
@@ -113,6 +117,14 @@ const Admin = () => {
           
           <TabsContent value="categories">
             <CategoryManagement />
+          </TabsContent>
+
+          <TabsContent value="combos">
+            <ComboManagement />
+          </TabsContent>
+
+          <TabsContent value="analytics">
+            <Analytics />
           </TabsContent>
         </Tabs>
       </div>
